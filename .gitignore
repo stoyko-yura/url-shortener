@@ -1,0 +1,9 @@
+# Ignore node modules and build output
+node_modules/
+dist/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
