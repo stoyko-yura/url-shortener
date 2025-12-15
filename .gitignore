@@ -1,6 +1,7 @@
 # Ignore node modules and build output
 node_modules/
 dist/
+data/
 
 # Environment variables
 .env
