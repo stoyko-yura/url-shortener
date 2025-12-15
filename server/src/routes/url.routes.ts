@@ -1,11 +1,8 @@
 import { Router } from "express";
+import { shortenUrl } from "../controllers/url.controller";
 
 const router = Router();
 
-router.post("/shorten", (req, res) => {
-  res.json({
-    message: "URL shortened successfully",
-  });
-});
+router.post("/shorten", shortenUrl);
 
 export default router;
