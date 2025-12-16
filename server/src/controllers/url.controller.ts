@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createShortUrl, getUrl } from "../services/url.service";
+import { createShortUrl, getOriginalUrl, getUrl } from "../services/url.service";
 
 const shortenUrl = async (req: Request, res: Response) => {
   try {
@@ -40,4 +40,21 @@ const shortenUrl = async (req: Request, res: Response) => {
   }
 };
 
-export { shortenUrl };
+const redirectToOriginalUrl = async (req: Request, res: Response) => {
+  try {
+    const { shortCode } = req.params;
+    const originalUrl = await getOriginalUrl(shortCode);
+
+    if (!originalUrl) {
+      return res.status(404).json({ message: "Short URL not found", success: false });
+    }
+
+    res.redirect(originalUrl);
+  } catch (error) {
+    console.error("Error in redirectToOriginalUrl controller:", error);
+
+    res.status(500).json({ message: "Internal server error", success: false });
+  }
+};
+
+export { redirectToOriginalUrl, shortenUrl };

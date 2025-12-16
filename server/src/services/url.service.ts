@@ -45,4 +45,20 @@ const createShortUrl = async (originalUrl: string) => {
   });
 };
 
-export { createShortUrl, getUrl };
+const getOriginalUrl = async (shortCode: string): Promise<string | null> => {
+  const query = "SELECT * FROM urls WHERE short_code = ?";
+
+  return new Promise((resolve, reject) => {
+    db.get(query, [shortCode], (err, row: any) => {
+      if (err) {
+        return reject(new Error("Error retrieving URL by code: " + err.message));
+      }
+
+      if (!row) return resolve(null);
+
+      resolve(row["original_url"]);
+    });
+  });
+};
+
+export { createShortUrl, getOriginalUrl, getUrl };
