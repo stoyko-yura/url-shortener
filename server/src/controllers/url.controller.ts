@@ -17,10 +17,7 @@ const shortenUrl = async (req: Request, res: Response) => {
 
     if (existUrl) {
       return res.status(200).json({
-        shortUrl: {
-          originalUrl: existUrl.originalUrl,
-          shortCode: existUrl.shortCode,
-        },
+        shortUrl: `${req.protocol}://${req.get("host")}/s/${existUrl.shortCode}`,
         message: "URL already shortened",
         success: true,
       });
@@ -29,7 +26,7 @@ const shortenUrl = async (req: Request, res: Response) => {
     const shortUrl = await createShortUrl(url);
 
     res.status(201).json({
-      shortUrl: `${req.protocol}://${req.get("host")}/${shortUrl.shortCode}`,
+      shortUrl: `${req.protocol}://${req.get("host")}/s/${shortUrl.shortCode}`,
       message: "URL shortened successfully",
       success: true,
     });
