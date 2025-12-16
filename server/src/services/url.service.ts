@@ -26,7 +26,7 @@ const getUrl = async (url: string): Promise<ShortUrl | null> => {
   });
 };
 
-const createShortUrl = async (originalUrl: string) => {
+const createShortUrl = async (originalUrl: string): Promise<{ originalUrl: string; shortCode: string }> => {
   const code = generateCode();
 
   const query = "INSERT INTO urls (original_url, short_code) VALUES (?, ?)";

@@ -29,7 +29,7 @@ const shortenUrl = async (req: Request, res: Response) => {
     const shortUrl = await createShortUrl(url);
 
     res.status(201).json({
-      shortUrl,
+      shortUrl: `${req.protocol}://${req.get("host")}/${shortUrl.shortCode}`,
       message: "URL shortened successfully",
       success: true,
     });
