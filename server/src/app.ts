@@ -7,6 +7,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/url", urlRoutes);
+app.use("/", urlRoutes);
 
 export { app };
